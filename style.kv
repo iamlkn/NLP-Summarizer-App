@@ -1,0 +1,120 @@
+<SummarizerLayout>:
+    orientation: 'vertical'
+    padding: 30
+    spacing: 20
+
+    # Background Color for the Whole Layout
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1  # Black
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # Title (with Image, Centered)
+    BoxLayout:
+        size_hint_y: None
+        height: 60
+        pos_hint: {'center_x': 0.8}  # Center horizontally
+
+        BoxLayout:  # Inner BoxLayout for image and text
+            size_hint_x: None  # Allow manual width setting
+            width: self.minimum_width  # Set width based on content
+            
+            Image:
+                source: 'images/notepad.png'
+                size_hint: None, None
+                size: 60, 60  # Adjust as needed
+
+            Label:
+                text: " Text Summarizer"
+                font_name: 'fonts/Montserrat-Bold'
+                font_size: 32
+                color: 0.9, 0.9, 0.9, 1
+                size_hint_x: None  # Allow manual width setting
+                width: self.texture_size[0]  # Set width to text width
+
+
+    # Input Text Area
+    TextInput:
+        id: input_text
+        hint_text: "Enter the text you want to summarize:"
+        multiline: True
+        background_color: 0.1, 0.1, 0.1, 1  # Dark gray
+        foreground_color: 0.9, 0.9, 0.9, 1  # Light gray text
+        cursor_color: 0.9, 0.9, 0.9, 1  # Light gray cursor
+        font_name: 'fonts/Roboto-Regular'
+        font_size: 16
+        padding: 15
+
+    # Settings (Slider and Dropdown)
+    BoxLayout:
+        size_hint_y: None
+        height: 50
+        spacing: 20
+
+        # Extraction Method Dropdown (Spinner in Kivy)
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: "Model:"
+                font_name: 'fonts/Roboto-Regular'
+                font_size: 14
+                color: 0.9, 0.9, 0.9, 1  # Light gray text
+                size_hint_y: None
+                height: 20
+            Spinner:
+                id: model_spinner
+                text: 'Pointer Generator Coverage Mechanism'
+                values: ['Pointer Generator Coverage Mechanism']
+                font_name: 'fonts/Roboto-Regular'
+                font_size: 14
+                color: 0.9, 0.9, 0.9, 1  # Light gray text
+                background_color: 0.1, 0.1, 0.1, 1  # Dark gray background
+                size_hint_y: None
+                height: 30
+
+    # Summarize Button
+    Button:
+        text: "Summarize"
+        size_hint_y: None
+        height: 50
+        font_name: 'fonts/Roboto-Bold'
+        font_size: 18
+        background_normal: ''
+        background_color: 0.2, 0.2, 0.2, 1  # Slightly lighter dark gray
+        color: 0.9, 0.9, 0.9, 1  # Light gray text
+        on_press: root.on_summarize()
+
+    # Output Label (Initially Empty)
+    Label:
+        id: output_label
+        text: ""
+        font_name: 'fonts/Roboto-Regular'
+        font_size: 16
+        size_hint_y: None
+        height: self.texture_size[1]
+        text_size: self.width, None
+        padding: 15, 15
+        color: 0.9, 0.9, 0.9, 1  # Light gray text
+
+    # Separator (Dashed Line)
+    Label:
+        size_hint_y: None
+        height: 1
+        canvas.before:
+            Color:
+                rgba: 0.9, 0.9, 0.9, 1  # Light gray
+            Line:
+                points: self.x, self.y, self.x + self.width, self.y
+                dash_offset: 2
+                dash_length: 5
+
+    # Footer
+    Label:
+        text: "Thank you for using our text summarization app! We hope it saved you time and made things simpler."
+        font_name: 'fonts/Roboto-Italic'
+        font_size: 12
+        color: 0.9, 0.9, 0.9, 1  # Light gray text
+        text_size: self.width, None
+        halign: 'center'
